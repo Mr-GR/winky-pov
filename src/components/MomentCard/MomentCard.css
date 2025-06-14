@@ -1,0 +1,42 @@
+.moment-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 400px; /* Like Instagram's post width */
+  margin: 0 auto; /* Center the card */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.moment-image {
+  width: 100%;
+  aspect-ratio: 1 / 1; 
+  object-fit: cover;
+}
+
+.moment-content {
+  padding: 1rem;
+  text-align: left;
+}
+
+.moment-content h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+.moment-content p {
+  margin: 0.3rem 0;
+}
+
+.moment-date {
+  font-size: 0.9rem;
+  color: #888;
+  margin: 0.3rem 0;
+}
+
+.paws {
+  margin-top: 0.5rem;
+  font-size: 1.3rem;
+}
