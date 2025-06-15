@@ -5,6 +5,7 @@ import Timeline from './components/Timeline/Timeline';
 import TabNavBar from './components/TabNavBar/TabNavBar';
 import EnvelopeIntro from './components/EnvelopeIntro/EnvelopeIntro';
 import AddMoment from './components/AddMoment/AddMoment';
+import MoodTracker from './components/MoodTracker/MoodTracker';
 import firstBarkImg from './assets/first-bark.jpg';
 import couchImg from './assets/couch.jpg';
 
@@ -48,6 +49,7 @@ function App() {
         <EnvelopeIntro onOpen={() => setShowEnvelope(false)} />
       ) : (
         <>
+    
           {tab === 'Home' && (
             <>
               <Header />
@@ -58,6 +60,8 @@ function App() {
           {tab === 'Add' && <AddMoment onAdd={handleAddMoment} />}
 
           <TabNavBar currentTab={tab} onTabChange={setTab} />
+
+          {tab === 'Mood' && <MoodTracker />}
         </>
       )}
     </div>
