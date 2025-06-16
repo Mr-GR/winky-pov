@@ -5,9 +5,9 @@ import Timeline from './components/Timeline/Timeline';
 import TabNavBar from './components/TabNavBar/TabNavBar';
 import EnvelopeIntro from './components/EnvelopeIntro/EnvelopeIntro';
 import AddMoment from './components/AddMoment/AddMoment';
+import DailyMoodDisplay from './components/MoodTracker/DailyMoodDisplay';
 import MoodTracker from './components/MoodTracker/MoodTracker';
 import firstBarkImg from './assets/first-bark.jpg';
-import couchImg from './assets/couch.jpg';
 
 function App() {
   const [showEnvelope, setShowEnvelope] = useState(true);
@@ -19,21 +19,7 @@ function App() {
       title: 'The First Bark',
       description: 'I saw Mom bring you home. I barked... but in a good way!',
       image: firstBarkImg,
-      paws: 4,
-    },
-    {
-      date: '2018',
-      title: 'Couch Cuddles',
-      description: 'I claimed the middle seat. You both squeezed in. Classic.',
-      image: couchImg,
-      paws: 5,
-    },
-    {
-      date: '2018',
-      title: 'Couch Cuddles',
-      description: 'I claimed the middle seat. You both squeezed in. Classic.',
-      image: couchImg,
-      paws: 5,
+      paws: 9,
     },
   ];
 
@@ -53,6 +39,7 @@ function App() {
           {tab === 'Home' && (
             <>
               <Header />
+              <DailyMoodDisplay />
               <Timeline moments={moments} />
             </>
           )}
