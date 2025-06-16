@@ -1,0 +1,104 @@
+.mood-tracker {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.mood-tracker h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.mood-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.mood-btn {
+  background: #fdfdfd;
+  border: 2px solid #ddd;
+  border-radius: 1rem;
+  padding: 0.75rem;
+  width: 90px;
+  max-width: 22vw;
+  transition: 0.2s ease;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mood-btn.selected {
+  border-color: #ff8db2;
+  background-color: #fff0f6;
+}
+
+.mood-btn span {
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+}
+
+textarea {
+  width: 100%;
+  max-width: 400px;
+  height: 80px;
+  padding: 0.6rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  resize: none;
+}
+
+.mood-summary {
+  margin-top: 1.5rem;
+  background-color: #fff7fb;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.mood-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px); 
+  padding: 2rem;
+}
+
+
+/* Responsive for iPhones and small devices */
+@media (max-width: 480px) {
+  .mood-btn {
+    width: 70px;
+    max-width: none;
+    font-size: 0.75rem;
+    padding: 0.6rem;
+  }
+
+  .mood-btn span {
+    font-size: 1.5rem;
+  }
+
+  textarea {
+    font-size: 0.85rem;
+    height: 70px;
+  }
+
+  .mood-tracker h2 {
+    font-size: 1.2rem;
+  }
+
+  .mood-summary {
+    font-size: 0.85rem;
+  }
+}

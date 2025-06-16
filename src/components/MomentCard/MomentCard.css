@@ -3,12 +3,19 @@
   border: 1px solid #ddd;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  width: 100%;
-  max-width: 400px; /* Like Instagram's post width */
-  margin: 0 auto; /* Center the card */
+  padding: 1rem;
+  max-width: 400px; 
+  margin: 0 auto; 
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  text-align: center;
+  font-family: 'Courier New', monospace; 
+}
+
+.moment-image {
+  border-bottom: 4px solid #f4f4f4;
+  margin-bottom: 0.5rem;
 }
 
 .moment-image {

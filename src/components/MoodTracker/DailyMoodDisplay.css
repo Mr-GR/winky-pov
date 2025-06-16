@@ -1,0 +1,35 @@
+.daily-mood-container {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.daily-mood-title {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.daily-mood-card {
+  background-color: #fff6fa;
+  border-radius: 16px;
+  padding: 1rem 2rem;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  max-width: 90%;
+}
+
+.daily-mood-emoji {
+  font-size: 2.5rem;
+}
+
+.daily-mood-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.daily-mood-note {
+  font-style: italic;
+  color: #777;
+  font-size: 0.95rem;
+}

@@ -5,7 +5,7 @@ const EnvelopeIntro = ({ onOpen }) => {
   return (
     <div className="envelope-screen" onClick={onOpen}>
       <div className="envelope">✉️</div>
-      <p className="tap-to-open">Tap to open your love story</p>
+      <p className="tap-to-open">Tap to open a great suprises</p>
     </div>
   );
 };
