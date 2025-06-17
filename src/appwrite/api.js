@@ -7,8 +7,8 @@ export async function uploadMomentImage(file) {
       appwriteConfig.storageId,
       ID.unique(),
       file,
-      [Permission.read(Role.any())], 
-      [Permission.write(Role.any())] 
+      [Permission.read(Role.any())], // public read access
+      [Permission.write(Role.any())] // public write (optional)
     );
     return uploaded;
   } catch (error) {
@@ -17,9 +17,14 @@ export async function uploadMomentImage(file) {
   }
 }
 
-
 export function getMomentImagePreview(fileId) {
-  return storage.getFileView(appwriteConfig.storageId, fileId).href;
+  try {
+    const fileUrl = storage.getFileView(appwriteConfig.storageId, fileId);
+    return fileUrl?.href || ''; 
+  } catch (error) {
+    console.error('Error generating image preview URL:', error);
+    return '';
+  }
 }
 
 export async function saveMomentToDatabase({ title, description, imageUrl, paws, date }) {
