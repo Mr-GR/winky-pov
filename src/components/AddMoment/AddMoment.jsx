@@ -1,63 +1,59 @@
 import React, { useState } from 'react';
 import './AddMoment.css';
-import {
-  uploadMomentImage,
-  getMomentImagePreview,
-  saveMomentToDatabase,
-} from '../../appwrite/api';
+import { uploadMomentImage, saveMomentToDatabase } from '../../appwrite/api';
+import { toast } from 'react-toastify';
 
 const AddMoment = ({ onAdd }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState(null);
-  const [imageFile, setImageFile] = useState(null);
+  const [file, setFile] = useState(null);
   const [paws, setPaws] = useState(5);
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setImageFile(file);
-
-    const reader = new FileReader();
-    reader.onloadend = () => setImage(reader.result);
-    reader.readAsDataURL(file);
+    setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!title || !description || !imageFile) {
-      alert('Please fill in all fields and choose an image.');
+    if (!title || !description || !file) {
+      alert('Please fill in all fields and select an image.');
       return;
     }
+    
+    const toastId = toast.loading('Uploading your moment...');
 
     try {
-      const uploaded = await uploadMomentImage(imageFile);
-      if (!uploaded) throw new Error('Image upload failed');
+      const uploaded = await uploadMomentImage(file);
+      if (!uploaded || !uploaded.$id) {
+        toast.update(toastId, { render: 'Image upload failed.', type: 'error', isLoading: false, autoClose: 3000 });
+        throw new Error('Upload failed');
+      }
 
-      const imageUrl = getMomentImagePreview(uploaded.$id);
+      const date = new Date().toISOString();
 
-      const newMoment = await saveMomentToDatabase({
+      const saved = await saveMomentToDatabase({
         title,
         description,
-        imageUrl,
+        imageId: uploaded.$id,
         paws,
-        date: new Date().toISOString().split('T')[0],
+        date,
       });
 
-      if (!newMoment) throw new Error('Failed to save moment');
-
-      onAdd?.(newMoment); 
-
-      setTitle('');
-      setDescription('');
-      setImage(null);
-      setImageFile(null);
-      setPaws(5);
+      if (saved) {
+        onAdd(saved);
+        setTitle('');
+        setDescription('');
+        setFile(null);
+        setPaws(5);
+        toast.update(toastId, { render: 'Moment added successfully!', type: 'success', isLoading: false, autoClose: 3000 });
+      } else {
+        toast.update(toastId, { render: 'Failed to save moment.', type: 'error', isLoading: false, autoClose: 3000 });
+        alert('Saving to database failed.');
+      }
     } catch (err) {
       console.error('Upload failed:', err);
-      alert('Something went wrong. Please try again.');
+      toast.update(toastId, { render: 'Something went wrong.', type: 'error', isLoading: false, autoClose: 3000 });
+      alert('Something went wrong while saving your moment.');
     }
   };
 
@@ -77,7 +73,7 @@ const AddMoment = ({ onAdd }) => {
           rows={4}
         />
         <input type="file" accept="image/*" onChange={handleFileChange} />
-        {image && <img src={image} alt="preview" className="image-preview" />}
+        {file && <img src={URL.createObjectURL(file)} alt="preview" className="image-preview" />}
         <label>Paw Rating: {paws} 🐾</label>
         <input
           type="range"

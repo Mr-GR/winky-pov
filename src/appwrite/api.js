@@ -8,7 +8,7 @@ export async function uploadMomentImage(file) {
       ID.unique(),
       file,
       [Permission.read(Role.any())],
-      [Permission.write(Role.any())] 
+      [Permission.write(Role.any())]
     );
     return uploaded;
   } catch (error) {
@@ -16,18 +16,28 @@ export async function uploadMomentImage(file) {
     return null;
   }
 }
-
 export function getMomentImagePreview(fileId) {
   try {
-    const fileUrl = storage.getFileView(appwriteConfig.storageId, fileId);
-    return fileUrl?.href || ''; 
+    const url = storage.getFileView(appwriteConfig.storageId, fileId).href;
+    console.log("Generated file view URL:", url);
+    return url;
   } catch (error) {
     console.error('Error generating image preview URL:', error);
     return '';
   }
 }
 
-export async function saveMomentToDatabase({ title, description, imageUrl, paws, date }) {
+export function getMomentImageUrl(imageId) {
+  if (!imageId) return null;
+  try {
+    return storage.getFilePreview(appwriteConfig.storageId, imageId).href;
+  } catch (err) {
+    console.error('Failed to generate preview URL:', err);
+    return '';
+  }
+}
+
+export async function saveMomentToDatabase({ title, description, imageId, paws, date }) {
   try {
     const doc = await databases.createDocument(
       appwriteConfig.databaseId,
@@ -36,7 +46,7 @@ export async function saveMomentToDatabase({ title, description, imageUrl, paws,
       {
         title,
         description,
-        imageUrl,
+        imageId,
         paws,
         date,
       }
