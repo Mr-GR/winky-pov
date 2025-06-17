@@ -7,8 +7,8 @@ export async function uploadMomentImage(file) {
       appwriteConfig.storageId,
       ID.unique(),
       file,
-      [Permission.read(Role.any())], // public read access
-      [Permission.write(Role.any())] // public write (optional)
+      [Permission.read(Role.any())],
+      [Permission.write(Role.any())] 
     );
     return uploaded;
   } catch (error) {

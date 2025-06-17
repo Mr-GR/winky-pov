@@ -5,7 +5,6 @@ import {
   getMomentImagePreview,
   saveMomentToDatabase,
 } from '../../appwrite/api';
-import { appwriteConfig } from '../../appwrite/config';
 
 const AddMoment = ({ onAdd }) => {
   const [title, setTitle] = useState('');
@@ -13,7 +12,6 @@ const AddMoment = ({ onAdd }) => {
   const [image, setImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [paws, setPaws] = useState(5);
-  const [password, setPassword] = useState('');
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -34,11 +32,6 @@ const AddMoment = ({ onAdd }) => {
       return;
     }
 
-    if (password !== appwriteConfig.secretPassword) {
-      alert('Incorrect password.');
-      return;
-    }
-
     try {
       const uploaded = await uploadMomentImage(imageFile);
       if (!uploaded) throw new Error('Image upload failed');
@@ -55,14 +48,13 @@ const AddMoment = ({ onAdd }) => {
 
       if (!newMoment) throw new Error('Failed to save moment');
 
-      onAdd?.(newMoment); // Optional callback
+      onAdd?.(newMoment); 
 
       setTitle('');
       setDescription('');
       setImage(null);
       setImageFile(null);
       setPaws(5);
-      setPassword('');
     } catch (err) {
       console.error('Upload failed:', err);
       alert('Something went wrong. Please try again.');
@@ -72,12 +64,6 @@ const AddMoment = ({ onAdd }) => {
   return (
     <div className="add-moment-container">
       <form className="add-moment-form" onSubmit={handleSubmit}>
-        <input
-          type="password"
-          placeholder="Secret password..."
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
         <input
           type="text"
           placeholder="Moment title..."

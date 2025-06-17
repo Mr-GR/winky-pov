@@ -1,13 +1,11 @@
 .header {
   background-color: #fff0f5;
   text-align: center;
-  padding: 2rem;
-  border-bottom: 2px solid #fff0f5;
+  padding: 1.5rem;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 2.5rem;
 }
 
 .header p {
