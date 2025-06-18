@@ -64,15 +64,17 @@ const AddMoment = ({ onAdd }) => {
           type="text"
           placeholder="Moment title..."
           value={title}
+          autoFocus={false}
           onChange={(e) => setTitle(e.target.value)}
         />
         <textarea
           placeholder="Write a sweet memory..."
           value={description}
+          autoFocus={false}
           onChange={(e) => setDescription(e.target.value)}
           rows={4}
         />
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <input type="file" accept="image/*" autoFocus={false} onChange={handleFileChange} />
         {file && <img src={URL.createObjectURL(file)} alt="preview" className="image-preview" />}
         <label>Paw Rating: {paws} 🐾</label>
         <input
@@ -80,6 +82,7 @@ const AddMoment = ({ onAdd }) => {
           min="1"
           max="5"
           value={paws}
+          autoFocus={false}
           onChange={(e) => setPaws(parseInt(e.target.value))}
         />
         <button type="submit">Add to Timeline</button>

@@ -24,6 +24,7 @@ const PasswordGate = ({ onUnlock }) => {
           type="password"
           placeholder="Enter secret password..."
           value={input}
+          autoFocus={false}
           onChange={(e) => setInput(e.target.value)}
         />
         {error && <p className="error">{error}</p>}
