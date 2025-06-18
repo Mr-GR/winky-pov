@@ -59,3 +59,12 @@
   border-radius: 8px;
   font-style: italic;
 }
+.delete-btn {
+  background-color: #ffeef2;
+  border-radius: 6px;
+  color: black;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}

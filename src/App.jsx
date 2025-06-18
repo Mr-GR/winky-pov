@@ -8,8 +8,8 @@ import AddMoment from './components/AddMoment/AddMoment';
 import DailyMoodDisplay from './components/MoodTracker/DailyMoodDisplay';
 import MoodTracker from './components/MoodTracker/MoodTracker';
 import PasswordGate from './components/PasswordGate/PasswordGate';
+import Spacer from './components/Spacer/Spacer';
 import { fetchAllMoments } from './appwrite/api';
-
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 
@@ -47,7 +47,8 @@ function App() {
             <>
               <Header />
               <DailyMoodDisplay />
-              <Timeline moments={moments} />
+              <Timeline moments={moments} setMoments={setMoments} />
+              <Spacer /> 
             </>
           )}
 
@@ -55,6 +56,7 @@ function App() {
 
           {tab === 'Mood' && <MoodTracker />}
 
+          <Spacer />
           <TabNavBar currentTab={tab} onTabChange={setTab} />
         </>
       )}
