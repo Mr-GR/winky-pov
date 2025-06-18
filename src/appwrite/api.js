@@ -7,7 +7,7 @@ export async function uploadMomentImage(file) {
       appwriteConfig.storageId,
       ID.unique(),
       file,
-      [Permission.read(Role.any())],
+      [Permission.read(Role.any())], 
       [Permission.write(Role.any())]
     );
     return uploaded;
@@ -16,25 +16,10 @@ export async function uploadMomentImage(file) {
     return null;
   }
 }
-export function getMomentImagePreview(fileId) {
-  try {
-    const url = storage.getFileView(appwriteConfig.storageId, fileId).href;
-    console.log("Generated file view URL:", url);
-    return url;
-  } catch (error) {
-    console.error('Error generating image preview URL:', error);
-    return '';
-  }
-}
 
 export function getMomentImageUrl(imageId) {
-  if (!imageId) return null;
-  try {
-    return storage.getFilePreview(appwriteConfig.storageId, imageId).href;
-  } catch (err) {
-    console.error('Failed to generate preview URL:', err);
-    return '';
-  }
+  if (!imageId) return '';
+  return `https://fra.cloud.appwrite.io/v1/storage/buckets/${appwriteConfig.storageId}/files/${imageId}/view?project=${appwriteConfig.projectId}`;
 }
 
 export async function saveMomentToDatabase({ title, description, imageId, paws, date }) {
@@ -49,12 +34,31 @@ export async function saveMomentToDatabase({ title, description, imageId, paws, 
         imageId,
         paws,
         date,
-      }
+      },
+      [
+        Permission.read(Role.any()),
+        Permission.write(Role.any()), 
+        Permission.delete(Role.any()),
+      ]
     );
     return doc;
   } catch (error) {
     console.error('Failed to save moment:', error);
     return null;
+  }
+}
+
+export async function deleteMoment(documentId) {
+  try {
+    await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.collectionId,
+      documentId
+    );
+    return true;
+  } catch (error) {
+    console.error('Failed to delete moment:', error);
+    return false;
   }
 }
 
