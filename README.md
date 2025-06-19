@@ -97,3 +97,25 @@ This app was created with love, privacy, and personality.
 
 ---
 
+## 🕸️ Demo
+
+<img width="1512" alt="Screenshot 2025-06-19 at 12 15 08 AM" src="https://github.com/user-attachments/assets/6aecadc4-6ea5-4f5d-8bc9-c487b1ab8457" />
+<img width="1512" alt="Screenshot 2025-06-19 at 12 15 15 AM" src="https://github.com/user-attachments/assets/b01017f4-f8e6-4098-aa2d-8fd8ee4f4614" />
+<img width="1512" alt="Screenshot 2025-06-19 at 12 15 36 AM" src="https://github.com/user-attachments/assets/8088f269-cebc-47f4-87be-aad57c4afd73" />
+<img width="1512" alt="Screenshot 2025-06-19 at 12 15 44 AM" src="https://github.com/user-attachments/assets/d8d72a82-8632-4745-8c79-0fb090a27e02" />
+<img width="1512" alt="Screenshot 2025-06-19 at 12 15 53 AM" src="https://github.com/user-attachments/assets/5597cc27-1a23-4711-b718-e31789c4a934" />
+
+
+---
+
+## 📱 Demo
+
+![IMG_9527](https://github.com/user-attachments/assets/2e4558eb-4342-43e1-b76e-11b69b29c578)
+![IMG_9526](https://github.com/user-attachments/assets/a3ab355a-1908-404c-82a4-6fce07d98abc)
+![IMG_9525](https://github.com/user-attachments/assets/b259649b-63a9-454a-821b-efbd6cb3cef5)
+![IMG_9524](https://github.com/user-attachments/assets/adb05cb0-5e9e-4b2b-b656-34bb5ca9d34d)
+![IMG_9523](https://github.com/user-attachments/assets/bc395874-1416-497f-817d-088f9c25e103)
+
+
+---
+
