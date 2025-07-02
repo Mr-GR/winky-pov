@@ -5,6 +5,7 @@ export const appwriteConfig = {
   url: process.env.REACT_APP_APPWRITE_URL,
   databaseId: process.env.REACT_APP_APPWRITE_DATABASE_ID,
   collectionId: process.env.REACT_APP_APPWRITE_COLLECTION_ID,
+  moodCollectionId: process.env.REACT_APP_APPWRITE_MOOD_COLLECTION_ID,
   storageId: process.env.REACT_APP_APPWRITE_STORAGE_ID,
   secretPassword: process.env.REACT_APP_SECRET_PASSWORD,
 };

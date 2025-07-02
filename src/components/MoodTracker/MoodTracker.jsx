@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './MoodTracker.css';
+import { saveMoodToDatabase, fetchCurrentMood } from '../../appwrite/api';
 
 const moods = [
   { emoji: '😴', label: 'Sleepy' },
@@ -8,6 +9,8 @@ const moods = [
   { emoji: '🍗', label: 'Hungry' },
   { emoji: '💩', label: 'Oopsie' },
   { emoji: '😎', label: 'Chill' },
+  { emoji: '🤢', label: 'Stinky' },
+  { emoji: '😠', label: 'Grumpy' },
 ];
 
 const getTodayEST = () =>
@@ -18,18 +21,22 @@ const MoodTracker = () => {
   const [note, setNote] = useState('');
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('winkyMood'));
-    const today = getTodayEST();
-
-    if (saved && saved.date === today) {
-      setSelectedMood(saved.mood);
-      setNote(saved.note || '');
-    } else {
-      localStorage.removeItem('winkyMood');
-    }
+    const loadCurrentMood = async () => {
+      try {
+        const currentMood = await fetchCurrentMood();
+        if (currentMood) {
+          setSelectedMood(currentMood.mood);
+          setNote(currentMood.note || '');
+        }
+      } catch (error) {
+        console.error('Error loading mood:', error);
+      }
+    };
+    
+    loadCurrentMood();
   }, []);
 
-  const handleMoodSelect = (mood) => {
+  const handleMoodSelect = async (mood) => {
     const today = getTodayEST();
     const entry = {
       mood: mood.label,
@@ -38,24 +45,50 @@ const MoodTracker = () => {
       date: today,
     };
     setSelectedMood(mood.label);
-    localStorage.setItem('winkyMood', JSON.stringify(entry));
-  };
-
-  const handleNoteChange = (e) => {
-    const updatedNote = e.target.value;
-    setNote(updatedNote);
-
-    const saved = JSON.parse(localStorage.getItem('winkyMood'));
-    if (saved) {
-      saved.note = updatedNote;
-      localStorage.setItem('winkyMood', JSON.stringify(saved));
+    
+    try {
+      await saveMoodToDatabase(entry);
+    } catch (error) {
+      console.error('Error saving mood:', error);
     }
   };
 
-  const clearMood = () => {
+  const handleNoteChange = async (e) => {
+    const updatedNote = e.target.value;
+    setNote(updatedNote);
+
+    if (selectedMood) {
+      const currentMood = moods.find(m => m.label === selectedMood);
+      const today = getTodayEST();
+      const entry = {
+        mood: selectedMood,
+        emoji: currentMood?.emoji,
+        note: updatedNote,
+        date: today,
+      };
+      
+      try {
+        await saveMoodToDatabase(entry);
+      } catch (error) {
+        console.error('Error updating mood note:', error);
+      }
+    }
+  };
+
+  const clearMood = async () => {
     setSelectedMood(null);
     setNote('');
-    localStorage.removeItem('winkyMood');
+    
+    try {
+      await saveMoodToDatabase({
+        mood: null,
+        emoji: null,
+        note: '',
+        date: getTodayEST(),
+      });
+    } catch (error) {
+      console.error('Error clearing mood:', error);
+    }
   };
 
   const currentMood = moods.find(m => m.label === selectedMood);

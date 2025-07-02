@@ -74,3 +74,68 @@ export async function fetchAllMoments() {
     return [];
   }
 }
+
+export async function saveMoodToDatabase({ mood, emoji, note, date }) {
+  try {
+    const data = {
+      mood: mood || '',
+      emoji: emoji || '😊',
+      note: note || '',
+      date: date || ''
+    };
+    
+    try {
+      // Try to update existing document first
+      const doc = await databases.updateDocument(
+        appwriteConfig.databaseId,
+        appwriteConfig.moodCollectionId,
+        'daily-mood',
+        data
+      );
+      return doc;
+    } catch (updateError) {
+      // If document doesn't exist, create it
+      if (updateError.code === 404) {
+        const doc = await databases.createDocument(
+          appwriteConfig.databaseId,
+          appwriteConfig.moodCollectionId,
+          'daily-mood',
+          data,
+          [
+            Permission.read(Role.any()),
+            Permission.write(Role.any()), 
+            Permission.delete(Role.any()),
+          ]
+        );
+        return doc;
+      }
+      throw updateError;
+    }
+  } catch (error) {
+    console.error('Failed to save mood:', error);
+    return null;
+  }
+}
+
+export async function fetchCurrentMood() {
+  try {
+    const res = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.moodCollectionId,
+      'daily-mood'
+    );
+    
+    return {
+      mood: res.mood || null,
+      emoji: res.emoji,
+      note: res.note,
+      date: res.date
+    };
+  } catch (error) {
+    if (error.code === 404) {
+      return null;
+    }
+    console.error('Error fetching mood:', error);
+    return null;
+  }
+}
