@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { saveMoodToDatabase, fetchCurrentMood } from '../../appwrite/api';
 
 const getTodayEST = () =>
   new Date().toLocaleDateString('en-US', { timeZone: 'America/New_York' });
@@ -6,13 +7,20 @@ const getTodayEST = () =>
 const DailyMoodDisplay = () => {
   const [mood, setMood] = useState(null);
 
-  useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('winkyMood'));
-    const today = getTodayEST();
 
-    if (saved && saved.date === today) {
-      setMood(saved);
-    }
+  useEffect(() => {
+    const loadCurrentMood = async () => {
+      try {
+        const currentMood = await fetchCurrentMood();
+        if (currentMood) {
+          setMood(currentMood);
+        }
+      } catch (error) {
+        console.error('Error loading mood:', error);
+      }
+    };
+
+    loadCurrentMood();
   }, []);
 
   if (!mood) return null;
